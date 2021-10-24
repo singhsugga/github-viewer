@@ -1,19 +1,13 @@
 <div class="row">
-  <div
-    class="col-lg-5  d-flex flex-column justify-content-center p-5"
-  >
+  <div class="col-lg-5  d-flex flex-column justify-content-center p-5">
     <span class="mx-auto d-flex justify-content-center flex-column">
-      <img
-        [src]="userDetails?.avatar_url"
-        class="rounded-circle my-auto"
-        alt="Avatar"
-      />
+      <img [src]="userDetails?.avatar_url" class="rounded-circle my-auto" alt="Avatar" />
 
       <p class="mt-4 d-flex align-content-center text-center text-primary">
         <i class="material-icons">link</i> &nbsp;
         <a [href]="userDetails?.html_url" target="_blank">{{
           userDetails?.html_url
-        }}</a>
+          }}</a>
       </p>
     </span>
   </div>
@@ -23,17 +17,14 @@
       <p>
         {{ userDetails?.bio }}
       </p>
-      <h5 class="d-flex align-content-center text-primary">
+      <h5 *ngIf="userDetails?.location" class="d-flex align-content-center text-primary">
         <i class="material-icons">location_on</i>{{ userDetails?.location }}
       </h5>
-      <p class="d-flex align-content-center text-primary">
+      <p *ngIf="userDetails?.twitter_username" class="d-flex align-content-center text-primary">
         <i class="material-icons">alternate_email</i>
         &nbsp;
-        <a
-          href="{{ 'https://twitter.com/' + userDetails?.twitter_username }}"
-          target="_blank"
-          >twitter.com/{{ userDetails?.twitter_username }}</a
-        >
+        <a href="{{ 'https://twitter.com/' + userDetails?.twitter_username }}" target="_blank">twitter.com/{{
+          userDetails?.twitter_username }}</a>
       </p>
     </div>
   </div>
