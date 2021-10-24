@@ -1,2 +1,59 @@
-<p>user-profile works!</p>
+<div class="h-100 w-100 bg-prdimary p-5" *ngIf="uiState$ | async as loadingState">
+  <div class="container" *ngIf="
+      !['ERROR', 'NOT_FOUND'].includes(loadingState.profileDetailState);
+      else profileError
+    ">
+    <app-user-details-loader *ngIf="loadingState.profileDetailState === 'LOADING'"></app-user-details-loader>
+    <app-user-details *ngIf="loadingState.profileDetailState === 'LOADED'" [userDetails]="profileData$ | async">
+    </app-user-details>
 
+    <div class="row">
+      <div class="align-items-center col-12 d-flex flex-wrap">
+        <ng-container *ngIf="loadingState.repoDetailState === 'LOADING'">
+          <div class="col-lg-6 my-2" *ngFor="let x of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]">
+            <app-card-loader></app-card-loader>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="loadingState.repoDetailState === 'LOADED'">
+          <app-repo-card [repoDetails]="repo" *ngFor="let repo of repoData$ | async" class="col-lg-6 my-2">
+          </app-repo-card>
+        </ng-container>
+
+        <ng-container *ngIf="loadingState.repoDetailState === 'ERROR'">
+          <app-no-data class="col-lg-12" [message]="errorMessages.REPO_ERROR"></app-no-data>
+        </ng-container>
+        <ng-container *ngIf="
+            loadingState.repoDetailState === 'LOADED' &&
+            (repoData$ | async)?.length === 0
+          ">
+          <app-no-data class="col-lg-12" [message]="errorMessages.NO_REPO_IN_ACCOUNT"></app-no-data>
+        </ng-container>
+      </div>
+    </div>
+    <ng-container *ngIf="pagiantion$ | async as pagination">
+      <ngb-pagination *ngIf="(profileData$ | async)?.public_repos > 0"
+        [disabled]="loadingState.repoDetailState === 'LOADING'" class="d-flex justify-content-center my-4"
+        [page]="pagination.currentPage" (pageChange)="getProfileRepo($event)" [pageSize]="pagination.perPage"
+        [collectionSize]="collectionSize"></ngb-pagination>
+    </ng-container>
+  </div>
+
+  <ng-template #profileError>
+    <div class="row">
+      <div class="align-items-center col-12 d-flex flex-wrap">
+        <app-no-data *ngIf="
+            loadingState.profileDetailState === 'NOT_FOUND';
+            else unknownError
+          " class="col-lg-12" [message]="errorMessages.PROFILE_ERROR">
+          <a class="mx-auto mt-5 p-2 btn btn-warning" style="width:200px" [routerLink]="['/profile']">Re-Enter
+            username</a>
+        </app-no-data>
+        <ng-template #unknownError>
+          <app-no-data class="col-lg-12">
+            <a class="mx-auto mt-5 p-2 btn btn-warning" style="width:200px" [routerLink]="['/profile']">Go Back</a>
+          </app-no-data>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+</div>
