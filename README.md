@@ -1,27 +1,14 @@
-# GithubUserDetails
+#### A simple Angular app for displaying the github user profile and its repositories based on the username provided.
+Hosted version of this application can be found here: https://github-repo-dtls.netlify.app/ 
+##### 1. Running the project
+`ng serve` this will run the project on `localhost:4200`. make sure angualar cli and nodejs is installed on your system.
+##### 2. Running the Unit test
+`ng test` will run the test suits with karma on `localhost:9876`
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.10.
+The Test suits are only written for `RepoCardComponent` and `UserDetailsComponent`
 
-## Development server
+### Assumptions
+1. Maximum 100 repo will be shown although the account has more than 100 repos as per requirement docs.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
