@@ -13,10 +13,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
+  /**
+   * Initial uistate of the application
+   */
   initialUIState: UiState = {
     profileDetailState: 'LOADING',
-    repoDetailState: 'LOADING',
+    repoDetailState: 'LOADING'
   };
+  /**
+   * Initial pagination state of the application
+   */
   initialPagination: Pagination = {
     previousPage: 1,
     currentPage: 1,
@@ -24,23 +30,46 @@ export class DataService {
   };
 
   constructor(private http: HttpClient) { }
-
+  /**
+   * Loading state observable of data service
+   */
   private loadingState: BehaviorSubject<UiState> = new BehaviorSubject<UiState>(
     this.initialUIState
   );
-  dataLoadStatus$: Observable<UiState> = this.loadingState.asObservable();
-
+  /**
+   * exposes private property for loadingState
+   */
+  readonly dataLoadStatus$: Observable<UiState> = this.loadingState.asObservable();
+  /**
+   * Pagination state of data service
+   */
   private paginationState: BehaviorSubject<Pagination> =
     new BehaviorSubject<Pagination>(this.initialPagination);
-  paginationStatus$: Observable<Pagination> =
+  /**
+   * exposes private property for paginationState
+   */
+  readonly paginationStatus$: Observable<Pagination> =
     this.paginationState.asObservable();
-
+  /**
+   * Profile  of the provided user
+   */
   private profile: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  profileDetail$: Observable<any> = this.profile.asObservable();
-
+  /**
+   * exposes private property for profile
+   */
+  readonly profileDetail$: Observable<any> = this.profile.asObservable();
+  /**
+   * Repos list of the provided user
+   */
   private reposList: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  repoLDetails$: Observable<any> = this.reposList.asObservable();
-
+  /**
+   * Repo details$ of data service
+   */
+  readonly repoDetails$: Observable<any> = this.reposList.asObservable();
+  /**
+   * Fetchs profile details based on the username
+   * @param username
+   */
   fetchProfileDetails(username: string) {
     this.http.get(environment.BASE_ENDPOINT + `users/${username}`).subscribe({
       next: (res: any) => {
@@ -58,7 +87,11 @@ export class DataService {
       },
     });
   }
-
+  /**
+   * Fetchs repository associated with a github user
+   * @param [pageNumber]
+   * @param userName
+   */
   fetchAssociatedRepo(pageNumber: number = 1, userName: string) {
     this.setLoadingState('REPO', 'LOADING');
     let params = new HttpParams();
@@ -77,7 +110,11 @@ export class DataService {
         },
       });
   }
-
+  /**
+   * Sets loading state based on API call status
+   * @param stateType
+   * @param value
+   */
   setLoadingState(
     stateType: 'PROFILE' | 'REPO',
     value: 'LOADED' | 'LOADING' | 'ERROR' | 'NOT_FOUND'
@@ -96,7 +133,10 @@ export class DataService {
     console.log('State', currentState);
     this.loadingState.next(currentState);
   }
-
+  /**
+   * Sets page on page change in pagination state
+   * @param pageNumber
+   */
   setPage(pageNumber: number) {
     this.paginationState.next({
       ...this.paginationState.getValue(),

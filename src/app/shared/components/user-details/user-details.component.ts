@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit {
-  @Input() userDetails!: UserDetails | null;
+  @Input() userDetails!: UserDetails | null|any;
   constructor() {}
 
   ngOnInit(): void {}

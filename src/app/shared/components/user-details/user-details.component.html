@@ -5,7 +5,7 @@
 
       <p class="mt-4 d-flex align-content-center text-center text-primary">
         <i class="material-icons">link</i> &nbsp;
-        <a [href]="userDetails?.html_url" target="_blank">{{
+        <a class="github"[href]="userDetails?.html_url" target="_blank">{{
           userDetails?.html_url
           }}</a>
       </p>
@@ -13,18 +13,15 @@
   </div>
   <div class="d-flex flex-column col-lg-7 bg-daxnger p-5 align-content-center">
     <div class="my-5">
-      <h1 class="text-primary">{{ userDetails?.name }}</h1>
-      <p class="bio">
-        {{ userDetails?.bio }}
-      </p>
+      <h1 class="text-primary">{{userDetails?.name}}</h1>
+      <p class="bio">{{userDetails?.bio}}</p>
       <h5 *ngIf="userDetails?.location" class="d-flex align-content-center text-primary">
-        <i class="material-icons">location_on</i>{{ userDetails?.location }}
+        <i class="material-icons">location_on</i><span>{{userDetails?.location}}</span>
       </h5>
       <p *ngIf="userDetails?.twitter_username" class="d-flex align-content-center text-primary">
         <i class="material-icons">alternate_email</i>
         &nbsp;
-        <a href="{{ 'https://twitter.com/' + userDetails?.twitter_username }}" target="_blank">twitter.com/{{
-          userDetails?.twitter_username }}</a>
+        <a class="twitter" href="{{'https://twitter.com/' + userDetails?.twitter_username}}" target="_blank">twitter.com/{{userDetails?.twitter_username}}</a>
       </p>
     </div>
   </div>

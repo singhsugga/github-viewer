@@ -2,7 +2,7 @@
     <h4>{{repoDetails?.name}}</h4>
     <small class="description">{{repoDetails?.description}}</small>
     <h6 *ngIf="repoDetails?.topics?.length" class="my-2">
-      <span *ngFor="let topic of repoDetails?.topics" class="badge badge-secondary mr-1 p-1 my-1">{{topic}}</span>
+      <span *ngFor="let topic of repoDetails?.topics" class="topic badge badge-secondary mr-1 p-1 my-1">{{topic}}</span>
     </h6>
   </div>
 
